@@ -32,7 +32,7 @@ module.exports = {
       place,
       description,
       hastags,
-      fileName,
+      image,
     })
 
     req.io.emit('post', post);
