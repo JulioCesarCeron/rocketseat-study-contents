@@ -2,6 +2,7 @@ import React, { Component } from "react"
 import { View, Text, Image, TouchableOpacity, FlatList, StyleSheet } from "react-native"
 
 import api from '../services/api'
+import io from 'socket.io-client'
 
 import camera from '../assets/camera.png';
 import more from '../assets/more.png';
@@ -22,8 +23,8 @@ export default class Feed extends Component {
     feed: [],
   }
 
-/*   registerToSocket = () => {
-    const socket = io('http://localhost:3333');
+  registerToSocket = () => {
+    const socket = io('http://192.168.10.129:3333');
     socket.on('post', newPost => {
       this.setState({
         feed: [newPost, ...this.state.feed],
@@ -37,16 +38,20 @@ export default class Feed extends Component {
       })
     })
 
-  } */
+  }
 
   async componentDidMount() {
-    //this.registerToSocket();
+    this.registerToSocket();
 
     const response = await api.get("posts")
     console.log('response', response);
     this.setState({
       feed: response.data,
     })
+  }
+
+  handleLike = id => {
+    api.post(`/posts/${id}/like`);
   }
 
   render() {
@@ -67,7 +72,7 @@ export default class Feed extends Component {
               <Image style={styles.feedImage} source={{ uri: `http://192.168.10.129:3333/files/${item.image}`}} />
               <View style={styles.feedItemFooter}>
                 <View style={styles.actions}>
-                  <TouchableOpacity style={styles.action} onPress={() => 1} >
+                  <TouchableOpacity style={styles.action} onPress={() => this.handleLike(item._id)} >
                     <Image source={like} />
                   </TouchableOpacity>
                   <TouchableOpacity style={styles.action} onPress={() => 1} >
@@ -79,7 +84,7 @@ export default class Feed extends Component {
                 </View>
                 <Text style={styles.likes} >{item.likes} curtidas</Text>
                 <Text style={styles.description} >{item.description}</Text>
-                <Text style={styles.hashtags} >{item.hastags}</Text>
+                <Text style={styles.hashtags} >{item.hashtags}</Text>
               </View>
             </View>
           )}
