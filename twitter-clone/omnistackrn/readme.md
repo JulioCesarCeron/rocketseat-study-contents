@@ -5,8 +5,8 @@ APLICATIVO
 Após clonar o repositório.
 1. `npm install`
 2. `npm start`
-   Aguardar até que o servidor do Metro Bundler esteja rodando
-3. `react-native run-android` ou `react-native run-ios` dependendo do emulador que estiver utilizando
+3. Aguardar até que o servidor do Metro Bundler esteja rodando
+4. `react-native run-android` ou `react-native run-ios` dependendo do emulador que estiver utilizando
 
 ## Dependências
  - Node ^v10.16.0

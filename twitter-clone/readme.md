@@ -7,7 +7,7 @@ Aplicação desenvolvida para fins de estudo.
 
 Aplicação utiliza login para poder acessar as páginas, é possível postar tweets e também curtir outros tweets.
 
-###Foram utilizadas as seguintes tecnologias/frameworks:
+### Foram utilizadas as seguintes tecnologias/frameworks:
 ### Backend
  - Node
  - Express
