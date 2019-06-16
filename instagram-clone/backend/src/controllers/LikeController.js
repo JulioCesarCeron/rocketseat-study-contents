@@ -1,5 +1,4 @@
 const Post = require('../models/Post');
-const mongoose = require('mongoose');
 
 module.exports = {
   async store(req, res) {
@@ -11,5 +10,4 @@ module.exports = {
 
     return res.json(post);
   },
-
-}
+};
