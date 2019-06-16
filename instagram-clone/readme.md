@@ -3,6 +3,8 @@ Aplicação **clone do instagram**, composta por Backend, Frontend e um aplicati
 ## Sobre o Projeto
 Aplicação desenvolvida para fins de estudo. 
 
+É possível fazer posts enviando imagens, também é possível curtir os posts já existentes.
+
 Foram utilizadas as seguintes tecnologias/frameworks:
 ### Backend
  - Node
