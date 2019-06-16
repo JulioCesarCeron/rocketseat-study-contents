@@ -1,17 +1,20 @@
-import React, { Component } from "react"
+import React, { Component } from 'react';
 import api from '../services/api';
-import "./New.css"
+import './New.css';
 
 class New extends Component {
-  state = {
-    image: null,
-    author: "",
-    place: "",
-    description: "",
-    hashtags: "",
+  constructor(props) {
+    super(props);
+    this.setState({
+      image: null,
+      author: '',
+      place: '',
+      description: '',
+      hashtags: '',
+    });
   }
 
-  handleSubmit = async e => {
+  handleSubmit = async (e) => {
     e.preventDefault();
 
     const data = new FormData();
@@ -24,25 +27,25 @@ class New extends Component {
 
     await api.post('posts', data);
 
-    this.props.history.push('/')
+    this.props.history.push('/');
   }
 
 
-  handleChange = e => {
+  handleChange = (e) => {
     this.setState({
       [e.target.name]: e.target.value,
-    })
+    });
   }
 
-  handleImageChange = e => {
+  handleImageChange = (e) => {
     this.setState({
       image: e.target.files[0],
-    })
+    });
   }
 
   render() {
     return (
-      <form id="new-post" onSubmit={this.handleSubmit} >
+      <form id="new-post" onSubmit={this.handleSubmit}>
         <input type="file" onChange={this.handleImageChange} />
 
         <input
@@ -79,8 +82,8 @@ class New extends Component {
 
         <button type="submit">Enviar</button>
       </form>
-    )
+    );
   }
 }
 
-export default New
+export default New;

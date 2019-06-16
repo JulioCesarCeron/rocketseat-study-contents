@@ -1,8 +1,8 @@
-import React from "react"
-import { BrowserRouter } from "react-router-dom"
+import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
 
-import Routes from "./routes"
-import Header from './components/Header'
+import Routes from './routes';
+import Header from './components/Header';
 
 function App() {
   return (
@@ -10,7 +10,7 @@ function App() {
       <Header />
       <Routes />
     </BrowserRouter>
-  )
+  );
 }
 
-export default App
+export default App;
