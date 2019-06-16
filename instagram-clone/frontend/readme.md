@@ -1,5 +1,5 @@
 ## Descrição
-BACK-END
+FRONT-END
 
 ## Instalação
 Após clonar o repositório.
