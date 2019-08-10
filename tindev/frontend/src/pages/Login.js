@@ -8,11 +8,9 @@ function Login({ history }) {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    console.log(username);
     const response = await api.post("/devs", {
       username,
     });
-    console.log('response', response);
 
     const { _id } = response.data;
 
