@@ -8,15 +8,29 @@ import {
   StyleSheet,
   TouchableOpacity
 } from "react-native";
-
+import io from 'socket.io-client';
 import logo from "../assets/logo.png";
 import dislike from "../assets/dislike.png";
 import like from "../assets/like.png";
+import itsamatch from "../assets/itsamatch.png";
 import api from "../services/api";
 
 export default function Main({ navigation }) {
   const id = navigation.getParam("user");
   const [users, setUsers] = useState([]);
+  const [matchDev, setMatchDev] = useState(null);
+
+  useEffect(() => {
+    const socket = io('http://10.0.1.36:3333', {
+      query: {
+        user: id,
+      }
+    });
+
+    socket.on('match', dev => {
+      setMatchDev(dev);
+    })
+  },[id])
 
   useEffect(() => {
     async function loadUser() {
@@ -53,6 +67,7 @@ export default function Main({ navigation }) {
 
   return (
     <SafeAreaView style={styles.container}>
+
       <TouchableOpacity onPress={handleLogout}>
         <Image style={styles.logo} source={logo} />
       </TouchableOpacity>
@@ -94,6 +109,21 @@ export default function Main({ navigation }) {
           </TouchableOpacity>
         </View>
       )}
+
+      {
+        matchDev && (
+          <View style={[styles.matchContainer, {zIndex: (users.length + 1)}]}>
+            <Image style={styles.matchItsamatch} source={itsamatch}/>
+            <Image style={styles.matchAvatar} source={{ uri: matchDev.avatar}} alt="avatar"/>
+            <Text style={styles.matchName} >{matchDev.name}</Text>
+            <Text>{matchDev.matchBio}</Text>
+            <TouchableOpacity onPress={() => setMatchDev(null)} >
+              <Text style={styles.closeMatch}>FECHAR</Text>
+            </TouchableOpacity>
+          </View>
+        )
+      }
+
     </SafeAreaView>
   );
 }
@@ -166,10 +196,55 @@ const styles = StyleSheet.create({
       height: 2
     }
   },
+
   empty: {
     alignSelf: "center",
     color: "#999",
     fontSize: 24,
     fontWeight: "bold"
+  },
+
+  matchContainer: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  matchItsamatch: {
+    height: 60,
+    resizeMode: 'contain',
+  },
+
+  matchAvatar: {
+    width: 160,
+    height: 160,
+    borderRadius: 80,
+    borderWidth: 5,
+    borderColor: '#fff',
+    marginVertical: 30, 
+  },
+
+  matchName: {
+    fontSize: 26,
+    fontWeight: 'bold',
+    color: '#fff',
+  },
+
+  matchBio: {
+    marginTop: 10,
+    fontSize: 16,
+    color: 'rgba(255, 255, 255, 0.8)',
+    lineHeight: 24,
+    textAlign: 'center',
+    paddingHorizontal: 30,
+  },
+
+  closeMatch: {
+    fontSize: 16,
+    color: '#fff',
+    textAlign: 'center',
+    marginTop: 30,
+    fontWeight: 'bold',
   }
 });
