@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 function DevForm({ onSubmit }) {
-	const [githubUsername, setGihubUsername] = useState('');
+	const [github_username, setGihubUsername] = useState('');
 	const [techs, setTechs] = useState('');
 	const [latitude, setLatitude] = useState('');
 	const [longitude, setLongitude] = useState('');
@@ -25,7 +25,7 @@ function DevForm({ onSubmit }) {
 		e.preventDefault();
 
 		await onSubmit({
-			githubUsername,
+			github_username,
 			techs,
 			latitude,
 			longitude,
@@ -43,7 +43,7 @@ function DevForm({ onSubmit }) {
 					type="text"
 					name="github_username"
 					id="github_username"
-					value={githubUsername}
+					value={github_username}
 					onChange={e => setGihubUsername(e.target.value)}
 					required
 				/>
