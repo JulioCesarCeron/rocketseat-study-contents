@@ -28,7 +28,16 @@ const CreatePoint = () => {
 	const [selectedUf, setSelectedUf] = useState('0');
 	const [cities, setCities] = useState<string[]>([]);
 	const [selectedCity, setSelectedCity] = useState('0');
+	const [initialPosition, setInitialPosition] = useState<[number, number]>([0, 0]);
+	console.log('initialPosition', initialPosition);
 	const [selectedPosition, setSelectedPosition] = useState<[number, number]>([0, 0]);
+
+	useEffect(() => {
+		navigator.geolocation.getCurrentPosition(position => {
+			const { latitude, longitude } = position.coords;
+			setInitialPosition([latitude, longitude]);
+		})
+	}, []);
 
 	useEffect(() => {
 		api.get('/items').then((response) => {
@@ -41,7 +50,7 @@ const CreatePoint = () => {
 			const ufInitials = response.data.map(uf => uf.sigla);
 			setUfs(ufInitials);
 		});
-	});
+	},[]);
 
 	useEffect(() => {
 		axios.get<IBGECityResponse[]>(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${selectedUf}/distritos`).then(response => {
@@ -113,7 +122,7 @@ const CreatePoint = () => {
 					</legend>
 
 					<Map
-						center={[-27.5660529, -48.5262317]}
+						center={initialPosition}
 						zoom={15}
 						onClick={handleMapClick}
 					>
@@ -131,7 +140,7 @@ const CreatePoint = () => {
 							<select
 								name="uf" 
 								id="uf"
-								onChange={handleSelectUf}
+								onChange={e => handleSelectUf(e)}
 								value={selectedUf}
 							>
 								<option value="0">Selecione uma UF</option>
@@ -144,7 +153,7 @@ const CreatePoint = () => {
 						<div className="field">
 							<label htmlFor="city">Cidade</label>
 							<select
-								onChange={handleSelectCity}
+								onChange={e => handleSelectCity(e)}
 								name="city"
 								id="city"
 								value={selectedCity}
