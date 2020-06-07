@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, Image, SafeAreaView, Linking } from 'react-native';
+import {
+	View, Text, StyleSheet, TouchableOpacity, Image, SafeAreaView, Linking
+} from 'react-native';
 import Constants from 'expo-constants';
 import { Feather as Icon, FontAwesome } from '@expo/vector-icons';
 import { useNavigation, useRoute } from '@react-navigation/native';
